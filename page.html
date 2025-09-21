@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Styling Techniques Demo</title>
+  
+  <!-- Internal CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: linear-gradient(to right, #ece9e6, #ffffff);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+    }
+    .internal-style {
+      background: linear-gradient(to right, #fff8e1, #ffe0b2);
+      padding: 20px;
+      border: 2px solid orange;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .internal-style:hover {
+      transform: scale(1.05);
+    }
+  </style>
+
+  <!-- Link to External CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>🌟 Webpage Styling Techniques 🌟</h1>
+  
+  <!-- Inline CSS Example -->
+  <h2 style="
+      color: green; 
+      text-decoration: underline; 
+      background: linear-gradient(to right, #a8e063, #56ab2f);
+      color: white; 
+      padding: 10px; 
+      border-radius: 5px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+      animation: pulse 2s infinite;">
+    This heading uses Inline CSS
+  </h2>
+  <p style="color: darkred; font-weight: bold; text-shadow: 1px 1px 2px gray;">
+    Inline CSS is applied directly to the element using the <code>style</code> attribute.
+  </p>
+  
+  <!-- Internal CSS Example -->
+  <div class="internal-style">
+    <h2>✨ This section uses Internal CSS ✨</h2>
+    <p>
+      Internal CSS is defined within the <code>&lt;style&gt;</code> tag inside the HTML file.
+    </p>
+  </div>
+  
+  <!-- External CSS Example -->
+  <div class="external-style">
+    <h2>🎨 This section uses External CSS 🎨</h2>
+    <p>
+      External CSS is written in a separate stylesheet file (<code>styles.css</code>) 
+      and linked to the HTML file.
+    </p>
+  </div>
+
+  <!-- Inline animation keyframes -->
+  <style>
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</body>
+</html>
