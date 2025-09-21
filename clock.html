@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Clock</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to right, #36d1dc, #5b86e5);
+      font-family: Arial, sans-serif;
+    }
+    #clock {
+      font-size: 3rem;
+      color: white;
+      padding: 20px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body>
+  <div id="clock">00:00:00</div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, "0");
+      const minutes = String(now.getMinutes()).padStart(2, "0");
+      const seconds = String(now.getSeconds()).padStart(2, "0");
+      document.getElementById("clock").textContent = `${hours}:${minutes}:${seconds}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock(); // call once immediately
+  </script>
+</body>
+</html>
