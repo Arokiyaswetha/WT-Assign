@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .registration-form {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    .registration-form h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .registration-form input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    .registration-form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #0288d1;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .registration-form button:hover {
+      background-color: #0277bd;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      margin-top: 15px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="registration-form">
+  <h2>User Registration</h2>
+  <input type="text" id="name" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <input type="text" id="mobile" placeholder="Mobile Number">
+  <button onclick="validateForm()">Register</button>
+
+  <pre id="output"></pre>
+</div>
+
+<script>
+function validateForm() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const mobile = document.getElementById("mobile").value.trim();
+
+  let validation = {};
+
+  // Name validation: at least 2 characters
+  if (name.length < 2) {
+    validation.name = "Name must be at least 2 characters long.";
+  } else {
+    validation.name = "Valid";
+  }
+
+  // Email validation: simple regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    validation.email = "Invalid email format.";
+  } else {
+    validation.email = "Valid";
+  }
+
+  // Password validation: min 6 chars, at least one number and one letter
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  if (!passwordRegex.test(password)) {
+    validation.password = "Password must be at least 6 characters with letters and numbers.";
+  } else {
+    validation.password = "Valid";
+  }
+
+  // Mobile validation: 10 digits numeric
+  const mobileRegex = /^\d{10}$/;
+  if (!mobileRegex.test(mobile)) {
+    validation.mobile = "Mobile number must be 10 digits.";
+  } else {
+    validation.mobile = "Valid";
+  }
+
+  // Output JSON-style validation messages
+  document.getElementById("output").textContent = JSON.stringify(validation, null, 2);
+}
+</script>
+
+</body>
+</html>
