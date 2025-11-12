@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Weather App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #e0f7fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .weather-card {
+      background: #fff;
+      padding: 25px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: all 0.3s ease;
+      width: 250px;
+    }
+
+    .weather-card:hover {
+      transform: scale(1.02);
+    }
+
+    input {
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 80%;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    button {
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: none;
+      background-color: #0288d1;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0277bd;
+    }
+
+    #city {
+      font-size: 1.6rem;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    #temp {
+      font-size: 2rem;
+      margin: 10px 0;
+    }
+
+    #desc {
+      font-size: 1.2rem;
+      color: #555;
+      text-transform: capitalize;
+    }
+
+    #icon {
+      width: 70px;
+      height: 70px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="weather-card">
+  <input type="text" id="cityInput" placeholder="Enter city name" />
+  <button onclick="searchCity()">Get Weather</button>
+
+  <h2 id="city">City</h2>
+  <img id="icon" src="" alt="Weather Icon">
+  <div id="temp">-- °C</div>
+  <div id="desc">Loading...</div>
+</div>
+
+<script>
+const apiKey = "211f9ab67f6531b27e03d297c243a764"; // Your API key
+let currentCity = "weather"; // Default city
+
+async function fetchWeather(city) {
+  try {
+    const res = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`
+    );
+    const data = await res.json();
+
+    if (data.cod === 200) {
+      document.getElementById("city").innerText = data.name;
+      document.getElementById("temp").innerText = `${data.main.temp.toFixed(1)} °C`;
+      document.getElementById("desc").innerText = data.weather[0].description;
+      const iconCode = data.weather[0].icon;
+      document.getElementById("icon").src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+    } else {
+      document.getElementById("desc").innerText = data.message || "Error fetching data";
+      document.getElementById("temp").innerText = "-- °C";
+      document.getElementById("icon").src = "";
+    }
+  } catch (err) {
+    console.error("Error fetching weather:", err);
+    document.getElementById("desc").innerText = "Failed to load data";
+    document.getElementById("temp").innerText = "-- °C";
+    document.getElementById("icon").src = "";
+  }
+}
+
+// Called when user clicks "Get Weather"
+function searchCity() {
+  const input = document.getElementById("cityInput").value.trim();
+  if (input) {
+    currentCity = input;
+    fetchWeather(currentCity);
+  }
+}
+
+// Initial fetch
+fetchWeather(currentCity);
+
+// Auto-refresh every 10 seconds
+setInterval(() => fetchWeather(currentCity), 10000);
+</script>
+
+</body>
+</html>
